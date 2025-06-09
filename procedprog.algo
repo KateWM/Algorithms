@@ -1,0 +1,76 @@
+ALGORITHM distinct_sum
+VAR
+    set1, set2 : ARRAY [1..100] OF INTEGER;
+    n1, n2, i, j, sum : INTEGER;
+    found : BOOLEAN;
+
+BEGIN
+    sum ← 0
+
+    // Read size and elements of first set
+    Read( n1 )
+    FOR i ← 1 TO n1 DO
+        Read( set1[i] )
+
+    // Read size and elements of second set
+    Read( n2 )
+    FOR i ← 1 TO n2 DO
+        Read( set2[i] )
+
+    // Check elements from set1 not in set2
+    FOR i ← 1 TO n1 DO
+        found ← FALSE
+        FOR j ← 1 TO n2 DO
+            IF set1[i] = set2[j] THEN
+                found ← TRUE
+        IF NOT found THEN
+            sum ← sum + set1[i]
+
+    // Check elements from set2 not in set1
+    FOR i ← 1 TO n2 DO
+        found ← FALSE
+        FOR j ← 1 TO n1 DO
+            IF set2[i] = set1[j] THEN
+                found ← TRUE
+        IF NOT found THEN
+            sum ← sum + set2[i]
+
+    Write( sum )
+END
+
+PROCEDURE dot_product(v1, v2 : ARRAY [1..100] OF INTEGER; n : INTEGER; VAR ps : INTEGER)
+VAR
+    i : INTEGER;
+BEGIN
+    ps ← 0
+    FOR i ← 1 TO n DO
+        ps ← ps + v1[i] * v2[i]
+END
+
+ALGORITHM check_orthogonal
+VAR
+    v1, v2 : ARRAY [1..100] OF INTEGER;
+    ps, i, j, n, numPairs : INTEGER;
+
+BEGIN
+    Read( numPairs )
+    FOR i ← 1 TO numPairs DO
+        Read( n )
+        
+        // Read first vector
+        FOR j ← 1 TO n DO
+            Read( v1[j] )
+        
+        // Read second vector
+        FOR j ← 1 TO n DO
+            Read( v2[j] )
+
+        // Call dot product
+        CALL dot_product(v1, v2, n, ps)
+
+        IF ps = 0 THEN
+            Write( "Pair ", i, " is orthogonal" )
+        ELSE
+            Write( "Pair ", i, " is NOT orthogonal" )
+END
+
